@@ -1,0 +1,56 @@
+From c3cb3c1a7402676afa76471803dbba744bcb7bd9 Mon Sep 17 00:00:00 2001
+From: Phong Tran <tranmanphong@gmail.com>
+Date: Sun, 17 Jul 2016 14:03:13 +0700
+Subject: [PATCH 5/7] Change to use standard libdir
+
+The lib*.so should be in /usr/lib path.
+
+Signed-off-by: Phong Tran <tranmanphong@gmail.com>
+---
+ src/components/policy/CMakeLists.txt | 2 +-
+ src/components/utils/CMakeLists.txt  | 2 +-
+ src/plugins/appenders/CMakeLists.txt | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/components/policy/CMakeLists.txt b/src/components/policy/CMakeLists.txt
+index 3a2b082..8786168 100644
+--- a/src/components/policy/CMakeLists.txt
++++ b/src/components/policy/CMakeLists.txt
+@@ -99,7 +99,7 @@ add_custom_target(copy_library_${target} ALL
+     COMMENT "Copying library ${library_name}")
+ 
+ install(TARGETS ${target}
+-  DESTINATION ${install_destination}
++  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+     GROUP_READ GROUP_EXECUTE
+     WORLD_READ WORLD_EXECUTE
+diff --git a/src/components/utils/CMakeLists.txt b/src/components/utils/CMakeLists.txt
+index f72d43e..711ccc2 100644
+--- a/src/components/utils/CMakeLists.txt
++++ b/src/components/utils/CMakeLists.txt
+@@ -119,7 +119,7 @@ if(BUILD_TESTS)
+ endif()
+ 
+ install(TARGETS "Utils"
+-  DESTINATION bin
++  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   PERMISSIONS
+     OWNER_READ OWNER_WRITE
+     GROUP_READ
+diff --git a/src/plugins/appenders/CMakeLists.txt b/src/plugins/appenders/CMakeLists.txt
+index 9d01599..7f0b563 100644
+--- a/src/plugins/appenders/CMakeLists.txt
++++ b/src/plugins/appenders/CMakeLists.txt
+@@ -44,7 +44,7 @@ add_library(${target} MODULE ${SOURCES})
+ target_link_libraries(${target} log4cxx -L${LOG4CXX_LIBS_DIRECTORY})
+ 
+ install(TARGETS ${target}
+-  DESTINATION bin
++  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   PERMISSIONS
+     OWNER_READ OWNER_WRITE OWNER_EXECUTE
+     GROUP_READ GROUP_EXECUTE
+-- 
+1.9.1
+

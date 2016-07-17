@@ -1,0 +1,29 @@
+From 05aebca3406d82fbc7925164980395f90c5e2158 Mon Sep 17 00:00:00 2001
+From: Phong Tran <tranmanphong@gmail.com>
+Date: Thu, 21 Jul 2016 21:51:41 +0700
+Subject: [PATCH 7/7] Fix make error with race condition
+
+Add the dependecies for MessageHelper to avoid
+the build error with 'make -jx'. Due to the MessageHelper
+need HMI_API.h.
+
+Signed-off-by: Phong Tran <tranmanphong@gmail.com>
+---
+ src/components/application_manager/CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/components/application_manager/CMakeLists.txt b/src/components/application_manager/CMakeLists.txt
+index d44cf6c..45efb13 100644
+--- a/src/components/application_manager/CMakeLists.txt
++++ b/src/components/application_manager/CMakeLists.txt
+@@ -378,6 +378,7 @@ add_library("AMHMICommandsLibrary" ${HMI_COMMANDS_SOURCES})
+ target_link_libraries("AMHMICommandsLibrary" ${LIBRARIES} AMEventEngine)
+ 
+ add_library("MessageHelper" ${MESSAGE_HELPER_SOURCES})
++add_dependencies(MessageHelper HMI_API)
+ 
+ add_library("AMMobileCommandsLibrary" ${MOBILE_COMMANDS_SOURCES} )
+ target_link_libraries("AMMobileCommandsLibrary" ${LIBRARIES} AMEventEngine)
+-- 
+1.9.1
+

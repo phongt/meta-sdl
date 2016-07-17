@@ -1,0 +1,53 @@
+From f50ec1be4210877925d6a7105f5a258e2f732616 Mon Sep 17 00:00:00 2001
+From: Christian Grobmeier <grobmeier@apache.org>
+Date: Wed, 7 Aug 2013 05:27:14 +0000
+Subject: [PATCH 2/2] LOGCXX-414: possibly wrong use of autotools docdir,
+ thanks to Alex Zbarcea
+
+git-svn-id: https://svn.apache.org/repos/asf/logging/log4cxx/trunk@1511176 13f79535-47bb-0310-9956-ffa450edef68
+(cherry picked from commit 34e2b302a5be1a106d7d565da0944c53aad4fd21)
+
+Conflicts:
+	src/changes/changes.xml
+---
+ src/changes/changes.xml   | 1 +
+ src/site/doxy/Makefile.am | 4 ++--
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/changes/changes.xml b/src/changes/changes.xml
+index 8a133b5..c1e167b 100644
+--- a/src/changes/changes.xml
++++ b/src/changes/changes.xml
+@@ -228,6 +228,7 @@
+ <action issue="LOGCXX-258">unable to build from make dist package due to missing doxygen file</action>
+ <action issue="LOGCXX-259">Several appenders fail to compile in Visual Studio 2008</action>
+ <action issue="LOGCXX-413">log4cxx doesn't compile on openembedded (due to Alex Zbarcea)</action>
++<action issue="LOGCXX-414">possibly wrong use of autotools docdir (due to Alex Zbarcea)</action>
+ </release>
+ <release version="0.9.7" date="2004-05-10">
+ <action type="fix">Fixed examples source code in the "Short introduction to log4cxx".</action>
+diff --git a/src/site/doxy/Makefile.am b/src/site/doxy/Makefile.am
+index 0c7293d..963c6fb 100644
+--- a/src/site/doxy/Makefile.am
++++ b/src/site/doxy/Makefile.am
+@@ -20,7 +20,7 @@ EXTRA_DIST = Doxyfile mainpage.dox license_notice_footer.txt
+ 
+ if DOC
+ 
+-htmldest = $(pkgdatadir)/html
++htmldest = $(docdir)/html
+ 
+ install-data-hook:
+ 	$(mkinstalldirs) $(DESTDIR)$(htmldest)
+@@ -40,7 +40,7 @@ pdf: @PACKAGE@.pdf
+ 	$(MAKE) -C ./latex pdf
+ 	ln -s ./latex/refman.ps	 @PACKAGE@.ps
+ 	ln -s ./latex/refman.pdf @PACKAGE@.pdf
+-	
++
+ endif
+ 
+ else
+-- 
+1.9.1
+

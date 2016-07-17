@@ -1,0 +1,34 @@
+From 6157961dcb06f0d5eed447e13dcbfcd2edd91cdb Mon Sep 17 00:00:00 2001
+From: Phong Tran <tranmanphong@gmail.com>
+Date: Tue, 19 Jul 2016 23:02:38 +0700
+Subject: [PATCH 6/7] Fix the warning uninitied value for navi & tts
+
+Signed-off-by: Phong Tran <tranmanphong@gmail.com>
+---
+ .../src/commands/mobile/alert_maneuver_request.cc              | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/src/components/application_manager/src/commands/mobile/alert_maneuver_request.cc b/src/components/application_manager/src/commands/mobile/alert_maneuver_request.cc
+index ea00bc8..42aa987 100644
+--- a/src/components/application_manager/src/commands/mobile/alert_maneuver_request.cc
++++ b/src/components/application_manager/src/commands/mobile/alert_maneuver_request.cc
+@@ -138,10 +138,12 @@ void AlertManeuverRequest::on_event(const event_engine::Event& event) {
+   LOG4CXX_AUTO_TRACE(logger_);
+   using namespace helpers;
+   const smart_objects::SmartObject& message = event.smart_object();
+-  bool is_tts_ok;
+-  bool is_no_navi_error;
+-  hmi_apis::Common_Result::eType tts_result;
+-  hmi_apis::Common_Result::eType navi_result;
++  bool is_tts_ok = false;
++  bool is_no_navi_error = false;
++  hmi_apis::Common_Result::eType tts_result =
++    hmi_apis::Common_Result::INVALID_ENUM;
++  hmi_apis::Common_Result::eType navi_result =
++    hmi_apis::Common_Result::INVALID_ENUM;
+   hmi_apis::FunctionID::eType event_id = event.id();
+   switch (event_id) {
+     case hmi_apis::FunctionID::Navigation_AlertManeuver: {
+-- 
+1.9.1
+

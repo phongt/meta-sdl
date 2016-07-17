@@ -1,0 +1,61 @@
+From 4120267758d6fd7cc11560773b02fe53a3b211a0 Mon Sep 17 00:00:00 2001
+From: Christian Grobmeier <grobmeier@apache.org>
+Date: Wed, 7 Aug 2013 05:24:54 +0000
+Subject: [PATCH] LOGCXX-413: doesn't compile on openembedded, thanks to Alex
+ Zbarcea
+
+git-svn-id: https://svn.apache.org/repos/asf/logging/log4cxx/trunk@1511175 13f79535-47bb-0310-9956-ffa450edef68
+(cherry picked from commit 3faaf9a4e4a00e70fc973a3afd8997bf96859682)
+
+Conflicts:
+	src/changes/changes.xml
+---
+ src/changes/changes.xml                      | 1 +
+ src/main/include/log4cxx/Makefile.am         | 2 +-
+ src/main/include/log4cxx/private/Makefile.am | 6 +-----
+ 3 files changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/src/changes/changes.xml b/src/changes/changes.xml
+index 7faa62b..8a133b5 100644
+--- a/src/changes/changes.xml
++++ b/src/changes/changes.xml
+@@ -227,6 +227,7 @@
+ <action issue="LOGCXX-257">ServerSocket::accept hangs on Unix</action>
+ <action issue="LOGCXX-258">unable to build from make dist package due to missing doxygen file</action>
+ <action issue="LOGCXX-259">Several appenders fail to compile in Visual Studio 2008</action>
++<action issue="LOGCXX-413">log4cxx doesn't compile on openembedded (due to Alex Zbarcea)</action>
+ </release>
+ <release version="0.9.7" date="2004-05-10">
+ <action type="fix">Fixed examples source code in the "Short introduction to log4cxx".</action>
+diff --git a/src/main/include/log4cxx/Makefile.am b/src/main/include/log4cxx/Makefile.am
+index 719c2dd..53e99b0 100644
+--- a/src/main/include/log4cxx/Makefile.am
++++ b/src/main/include/log4cxx/Makefile.am
+@@ -15,7 +15,7 @@
+ #
+ SUBDIRS = helpers net nt rolling spi varia xml config db private pattern filter
+ log4cxxincdir = $(includedir)/log4cxx
+-log4cxxinc_HEADERS= $(top_srcdir)/src/main/include/log4cxx/*.h log4cxx.h
++log4cxxinc_HEADERS= $(top_srcdir)/src/main/include/log4cxx/*.h
+ DISTCLEANFILES = log4cxx.h
+ EXTRA_DIST = log4cxx.hw
+ 
+diff --git a/src/main/include/log4cxx/private/Makefile.am b/src/main/include/log4cxx/private/Makefile.am
+index 3a896ea..8fb5448 100644
+--- a/src/main/include/log4cxx/private/Makefile.am
++++ b/src/main/include/log4cxx/private/Makefile.am
+@@ -14,10 +14,6 @@
+ # limitations under the License.
+ #
+ privateincdir = $(includedir)/log4cxx/private
+-privateinc_HEADERS= $(top_builddir)/src/main/include/log4cxx/private/*.h log4cxx_private.h
+-DISTCLEANFILES = log4cxx_private.h
++privateinc_HEADERS = log4cxx_private.h
+ EXTRA_DIST = log4cxx_private.hw
+ 
+-dist-hook:
+-	-rm -f $(distdir)/log4cxx_private.h
+-
+-- 
+1.9.1
+

@@ -1,0 +1,26 @@
+From 7683c3076cc843e7dca019e5de18cea8c4fe0ff5 Mon Sep 17 00:00:00 2001
+From: Phong Tran <tranmanphong@gmail.com>
+Date: Tue, 19 Jul 2016 07:16:24 +0700
+Subject: [PATCH 1/7] add the default cmake cxx flag for oe
+
+Signed-off-by: Phong Tran <tranmanphong@gmail.com>
+---
+ CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a4358b5..b81e321 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -184,7 +184,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+ set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR})
+ set(ARCHIVE_OUTPUT_DIRECTORY ./bin)
+ 
+-set(CMAKE_CXX_FLAGS "-fPIC -std=gnu++0x -Wall -Werror -Wno-deprecated-declarations -Wuninitialized -Wvla")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=gnu++0x -Wall -Werror -Wno-deprecated-declarations -Wuninitialized -Wvla")
+ 
+ if(ENABLE_SANITIZE)
+   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address")
+-- 
+1.9.1
+

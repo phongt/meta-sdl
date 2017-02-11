@@ -19,7 +19,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=74f1d14315878051720c07bfad563ed5 \
                     file://src/3rd_party-static/gmock-1.7.0/scripts/generator/LICENSE;md5=2c0b90db7465231447cf2dd2e8163333 \
                     file://src/3rd_party-static/gmock-1.7.0/gtest/LICENSE;md5=cbbd27594afd089daa160d3a16dd515a"
 
-SRC_URI = "git://github.com/smartdevicelink/sdl_core.git;branch=release/4.1.0"
+SRC_URI = "git://github.com/smartdevicelink/sdl_core.git;branch=release/4.1_LTS"
 
 SRC_URI_append = " \
     file://0001-add-the-default-cmake-cxx-flag-for-oe.patch \
@@ -32,7 +32,7 @@ SRC_URI_append = " \
 "
 
 PV = "4.1.0+git${SRCPV}"
-SRCREV = "2b4db8814d09c0ca668934d2e52e8102724c6ccb"
+SRCREV = "843300ec8621cde9b7c992b99e296b7f69f10613"
 
 S = "${WORKDIR}/git"
 

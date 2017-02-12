@@ -31,6 +31,7 @@ SRC_URI_append = " \
     file://0007-Fix-make-error-with-race-condition.patch \
     file://0008-add-env-for-log4cxx-properties-path.patch \
     file://0009-Install-the-configure-file-to-sysconf-dir.patch \
+    file://0010-Add-find-path-of-gstconfig-in-yocto-env.patch \
     file://smartdevicelink.service \
 "
 
@@ -47,7 +48,7 @@ DEPENDS_append = " gstreamer1.0-rtsp-server pulseaudio"
 
 export THIRD_PARTY_INSTALL_PREFIX="${STAGING_DIR_TARGET}"
 
-EXTRA_OECMAKE_apped = " -DEXTENDED_MEDIA_MODE=ON"
+EXTRA_OECMAKE_append = " -DEXTENDED_MEDIA_MODE=ON -DGSTREAMER_DIR=${STAGING_DIR_TARGET}"
 PARALLEL_MAKE = ""
 
 cmake_do_generate_toolchain_file_append() {

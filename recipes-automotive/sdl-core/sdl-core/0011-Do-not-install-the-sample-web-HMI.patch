@@ -1,0 +1,33 @@
+From 9f23d9b61fc85b7ecd2176537729d1241548dce3 Mon Sep 17 00:00:00 2001
+From: Phong Tran <tranmanphong@gmail.com>
+Date: Sun, 12 Feb 2017 20:01:01 +0700
+Subject: [PATCH 11/11] Do not install the sample web HMI
+
+---
+ src/appMain/CMakeLists.txt | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/appMain/CMakeLists.txt b/src/appMain/CMakeLists.txt
+index 17da3f2cf..9cfe0f361 100644
+--- a/src/appMain/CMakeLists.txt
++++ b/src/appMain/CMakeLists.txt
+@@ -213,11 +213,11 @@ install(
+   DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink
+ )
+ 
+-if (${WEB_HMI})
+-  if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+-    install( DIRECTORY ${CMAKE_HOME_DIRECTORY}/src/components/HMI/ DESTINATION bin/HMI)
+-  endif ()
+-elseif (${QT_HMI})
++#if (${WEB_HMI})
++#  if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
++#    install( DIRECTORY ${CMAKE_HOME_DIRECTORY}/src/components/HMI/ DESTINATION bin/HMI)
++#  endif ()
++if (${QT_HMI})
+   if (CMAKE_SYSTEM_NAME STREQUAL "QNX")
+     install(FILES start-qml.sh DESTINATION bin
+       PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ
+-- 
+2.11.0
+

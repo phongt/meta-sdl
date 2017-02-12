@@ -32,6 +32,7 @@ SRC_URI_append = " \
     file://0008-add-env-for-log4cxx-properties-path.patch \
     file://0009-Install-the-configure-file-to-sysconf-dir.patch \
     file://0010-Add-find-path-of-gstconfig-in-yocto-env.patch \
+    file://0011-Do-not-install-the-sample-web-HMI.patch \
     file://smartdevicelink.service \
 "
 

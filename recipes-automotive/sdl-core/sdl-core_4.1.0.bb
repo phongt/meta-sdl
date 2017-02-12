@@ -29,6 +29,9 @@ SRC_URI_append = " \
     file://0005-Change-to-use-standard-libdir.patch \
     file://0006-Fix-the-warning-uninitied-value-for-navi-tts.patch \
     file://0007-Fix-make-error-with-race-condition.patch \
+    file://0008-add-env-for-log4cxx-properties-path.patch \
+    file://0009-Install-the-configure-file-to-sysconf-dir.patch \
+    file://smartdevicelink.service \
 "
 
 PV = "4.1.0+git${SRCPV}"
@@ -36,7 +39,7 @@ SRCREV = "843300ec8621cde9b7c992b99e296b7f69f10613"
 
 S = "${WORKDIR}/git"
 
-inherit cmake pythonnative
+inherit cmake pythonnative systemd
 
 DEPENDS_append = " avahi bluez5 glib-2.0 sqlite3 log4cxx dbus openssl libusb1"
 DEPENDS_append = " gstreamer1.0 gstreamer1.0-plugins-good"
@@ -52,6 +55,22 @@ cmake_do_generate_toolchain_file_append() {
 set( CMAKE_SYSTEM_PROCESSOR ${HOST_SYS} )
 EOF
 }
+
+do_install_append() {
+    sed -i -e 's:AppConfigFolder =:AppConfigFolder = /etc/smartdevicelink/:g' \
+        ${D}/${sysconfdir}/smartdevicelink/smartDeviceLink.ini
+    sed -i -e 's:SmartDeviceLinkCore.log:/var/log/smartdevicelink/SmartDeviceLinkCore.log:g' \
+        -e 's:TransportManager.log:/var/log/smartdevicelink/TransportManager.log:g' \
+        -e 's:ProtocolFordHandling.log:/var/log/smartdevicelink/ProtocolFordHandling.log:g' \
+        ${D}/${sysconfdir}/smartdevicelink/log4cxx.properties
+
+    if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
+        install -d ${D}${systemd_unitdir}/system
+        install -m 644 ${WORKDIR}/smartdevicelink.service ${D}${systemd_unitdir}/system/smartdevicelink.service
+    fi
+}
+
+SYSTEMD_SERVICE_${PN} = "smartdevicelink.service"
 
 PACKAGES = " \
     ${PN} \

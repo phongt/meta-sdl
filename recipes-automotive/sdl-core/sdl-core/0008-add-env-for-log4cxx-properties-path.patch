@@ -1,0 +1,34 @@
+From 78804ab4d24a129260be7c63a26fa12a17190067 Mon Sep 17 00:00:00 2001
+From: Phong Tran <tranmanphong@gmail.com>
+Date: Sun, 12 Feb 2017 16:54:48 +0700
+Subject: [PATCH 08/10] add env for log4cxx properties path
+
+Add the env variable SDL_LOG4CXX_PROPERTIES_FILE
+to indicate the path of log4cxx configure file.
+---
+ src/appMain/main.cc | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/src/appMain/main.cc b/src/appMain/main.cc
+index 9507a52e7..a78a475e8 100644
+--- a/src/appMain/main.cc
++++ b/src/appMain/main.cc
+@@ -134,8 +134,13 @@ int32_t main(int32_t argc, char** argv) {
+ 
+   // --------------------------------------------------------------------------
+   // Logger initialization
+-  INIT_LOGGER("log4cxx.properties", profile_instance.logs_enabled());
+-
++  const char* log4cxx_path = getenv("SDL_LOG4CXX_PROPERTIES_FILE");
++  if (!log4cxx_path) {
++    INIT_LOGGER("log4cxx.properties", profile_instance.logs_enabled());
++  } else {
++    std::string log4cxx_properties = std::string(log4cxx_path);
++    INIT_LOGGER(log4cxx_properties, profile_instance.logs_enabled());
++  }
+   threads::Thread::SetNameForId(threads::Thread::CurrentId(), "MainThread");
+ 
+   if (!utils::appenders_loader.Loaded()) {
+-- 
+2.11.0
+

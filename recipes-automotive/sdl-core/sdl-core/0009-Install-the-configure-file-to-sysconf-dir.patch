@@ -1,0 +1,50 @@
+From 107d8ac8f4d71621413c8d7ff91848107553ff0e Mon Sep 17 00:00:00 2001
+From: Phong Tran <tranmanphong@gmail.com>
+Date: Sun, 12 Feb 2017 16:55:59 +0700
+Subject: [PATCH 09/11] Install the configure file to sysconf dir
+
+Use CMAKE_INSTALL_SYSCONFDIR for sdl configure files.
+---
+ src/appMain/CMakeLists.txt | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
+
+diff --git a/src/appMain/CMakeLists.txt b/src/appMain/CMakeLists.txt
+index 84b2c847b..17da3f2cf 100644
+--- a/src/appMain/CMakeLists.txt
++++ b/src/appMain/CMakeLists.txt
+@@ -148,12 +148,17 @@ add_executable(${PROJECT} ${SOURCES})
+ target_link_libraries(${PROJECT} ${LIBRARIES})
+ 
+ 
+-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/log4cxx.properties DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/audio.8bit.wav DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/test.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/smartDeviceLink.ini DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/hmi_capabilities.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/sdl_preloaded_pt.json DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
++#file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/log4cxx.properties DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}) #file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/audio.8bit.wav DESTINATION ${CMAKE_INSTALL_SYSCONFDIR})
++#file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/test.txt DESTINATION ${CMAKE_INSTALL_SYSCONFDIR})
++#file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/smartDeviceLink.ini DESTINATION ${CMAKE_INSTALL_SYSCONFDIR})
++#file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/hmi_capabilities.json DESTINATION ${CMAKE_INSTALL_SYSCONFDIR})
++#file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/sdl_preloaded_pt.json DESTINATION ${CMAKE_INSTALL_SYSCONFDIR})
++install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/log4cxx.properties DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink COMPONENT config)
++install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/audio.8bit.wav DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink COMPONENT config)
++install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/test.txt DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink COMPONENT config)
++install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/smartDeviceLink.ini DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink  COMPONENT config)
++install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/hmi_capabilities.json DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink  COMPONENT config)
++install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/sdl_preloaded_pt.json DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink  COMPONENT config)
+ if (CMAKE_SYSTEM_NAME STREQUAL "QNX")
+   file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/init_policy.sh DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+ endif ()
+@@ -205,7 +210,7 @@ install(
+   FILES log4cxx.properties audio.8bit.wav test.txt smartDeviceLink.ini
+     hmi_capabilities.json sdl_preloaded_pt.json
+     ${CMAKE_SOURCE_DIR}/mycert.pem ${CMAKE_SOURCE_DIR}/mykey.pem
+-  DESTINATION bin
++  DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink
+ )
+ 
+ if (${WEB_HMI})
+-- 
+2.11.0
+

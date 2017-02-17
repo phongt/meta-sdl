@@ -47,8 +47,8 @@ DEPENDS_append = " gstreamer1.0 gstreamer1.0-plugins-good"
 DEPENDS_append = " gstreamer1.0-rtsp-server pulseaudio"
 
 export THIRD_PARTY_INSTALL_PREFIX="${STAGING_DIR_TARGET}"
-
-EXTRA_OECMAKE_apped = " -DEXTENDED_MEDIA_MODE=ON"
+export GSTREAMER_DIR="${STAGING_LIBDIR}/gstreamer-1.0"
+EXTRA_OECMAKE_append = " -DEXTENDED_MEDIA_MODE=ON"
 PARALLEL_MAKE = ""
 
 cmake_do_generate_toolchain_file_append() {

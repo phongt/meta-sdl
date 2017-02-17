@@ -23,7 +23,6 @@ SRC_URI = "git://github.com/smartdevicelink/sdl_core.git;branch=release/4.1_LTS"
 
 SRC_URI_append = " \
     file://0001-add-the-default-cmake-cxx-flag-for-oe.patch \
-    file://0002-use-external-3rd-party-source.patch \
     file://0003-Use-the-default-install-prefix-of-cmake.patch \
     file://0004-disable-building-sdl-tools.patch \
     file://0005-Change-to-use-standard-libdir.patch \
@@ -48,6 +47,7 @@ DEPENDS_append = " gstreamer1.0-rtsp-server pulseaudio"
 
 export THIRD_PARTY_INSTALL_PREFIX="${STAGING_DIR_TARGET}"
 export GSTREAMER_DIR="${STAGING_LIBDIR}/gstreamer-1.0"
+EXTRA_OECMAKE_append = " -DNO_REBUILD_3RD_PARTY=ON"
 EXTRA_OECMAKE_append = " -DEXTENDED_MEDIA_MODE=ON"
 PARALLEL_MAKE = ""
 

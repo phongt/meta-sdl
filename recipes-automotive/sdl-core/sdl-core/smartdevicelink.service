@@ -1,7 +1,7 @@
 [Unit]
 Description=Smart Device Link Core
-After=dbus.service
-Requires=dbus.service
+After=bluetooth.service
+Requires=bluetooth.service
 
 [Service]
 Environment="SDL_LOG4CXX_PROPERTIES_FILE=/etc/smartdevicelink/log4cxx.properties"

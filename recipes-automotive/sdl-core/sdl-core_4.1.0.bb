@@ -73,6 +73,8 @@ do_install_append() {
 
 SYSTEMD_SERVICE_${PN} = "smartdevicelink.service"
 
+RDEPENDS_${PN} += " bluez-tools"
+
 PACKAGES = " \
     ${PN} \
     ${PN}-dev \

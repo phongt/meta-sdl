@@ -4,7 +4,7 @@ DESCRIPTION = "SmartDeviceLink (SDL) is a standard set of protocols and messages
 HOMEPAGE = "https://www.smartdevicelink.com"
 LICENSE = "BSD-3-Clause"
 
-LIC_FILES_CHKSUM = "file://LICENSE;md5=74f1d14315878051720c07bfad563ed5 \
+LIC_FILES_CHKSUM = "file://LICENSE;md5=37fc754617a4cd43d221b3042dc1be11 \
                     file://src/3rd_party/dbus-1.7.8/COPYING;md5=10dded3b58148f3f1fd804b26354af3e \
                     file://src/3rd_party/expat-2.1.0/COPYING;md5=1b71f681713d1256e1c23b0890920874 \
                     file://src/3rd_party/apr-1.5.0/LICENSE;md5=4dfd4cd216828c8cae5de5a12f3844c8 \
@@ -35,7 +35,7 @@ SRC_URI_append = " \
 "
 
 PV = "4.1.0+git${SRCPV}"
-SRCREV = "843300ec8621cde9b7c992b99e296b7f69f10613"
+SRCREV = "5043a62c8ec6bc7248c1ba5fee3f58eefc708bc4"
 
 S = "${WORKDIR}/git"
 

@@ -72,7 +72,6 @@ do_install_append() {
 }
 
 SYSTEMD_SERVICE_${PN} = "smartdevicelink.service"
-SYSTEMD_AUTO_ENABLE = "1"
 
 RDEPENDS_${PN} += " bluez-tools"
 

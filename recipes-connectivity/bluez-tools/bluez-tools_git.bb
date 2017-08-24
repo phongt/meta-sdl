@@ -4,7 +4,7 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=12f884d2ae1ff87c09e5b7ccc2c4ca7e"
 
 RDEPENDS_${PN} = "bluez5 obexd"
-DEPENDS = "glib-2.0 dbus-glib"
+DEPENDS = "glib-2.0 dbus-glib readline"
 
 PR = "r3+gitr${SRCPV}"
 

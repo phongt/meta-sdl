@@ -3,32 +3,21 @@ sdl layer.
 
 Please see the corresponding sections below for details.
 
-
 Dependencies
 ============
 
 This layer depends on:
 
-  URI: git://git.openembedded.org/bitbake
-  branch: master
+  URI: git://git.yoctoproject.org/poky
 
-  URI: git://git.openembedded.org/openembedded-core
-  layers: meta
-  branch: master
-
-  URI: git://git.yoctoproject.org/xxxx
-  layers: xxxx
-  branch: master
-
+  URI: git://git.openembedded.org/meta-openembedded
 
 Patches
 =======
 
-Please submit any patches against the sdl layer to the
-xxxx mailing list (xxxx@zzzz.org) and cc: the maintainer:
+Please send the pull request via github
 
 Maintainer: Phong Tran <tranmanphong@gmail.com>
-
 
 Table of Contents
 =================
@@ -40,8 +29,6 @@ Table of Contents
 I. Adding the sdl layer to your build
 =================================================
 
---- replace with specific instructions for the sdl layer ---
-
 In order to use this layer, you need to make the build system aware of
 it.
 
@@ -50,15 +37,18 @@ yocto build tree, you can add it to the build system by adding the
 location of the sdl layer to bblayers.conf, along with any
 other layers needed. e.g.:
 
-  BBLAYERS ?= " \
-    /path/to/yocto/meta \
-    /path/to/yocto/meta-yocto \
-    /path/to/yocto/meta-yocto-bsp \
-    /path/to/yocto/meta-sdl \
-    "
+  $ source poky/oe-init-build-env build
+  $ bitbake-layers add-layer /path/to/meta-openembedded/meta-oe/
+  $ bitbake-layers add-layer /path/to/meta-openembedded/meta-gnome/
+  $ bitbake-layers add-layer /path/to/meta-sdl/
 
+  configure in local.conf for install sdl-core
+  IMAGE_INSTALL_append = " sdl-core"
+  Use the systemd init manager (this layer only support systemd currently)
+  DISTRO_FEATURES_append = " systemd"
+  VIRTUAL-RUNTIME_init_manager = "systemd"
 
 II. Misc
 ========
 
---- replace with specific information about the sdl layer ---
+More reference AGL (Automotive Grade Linux) and GDP (GENIVI Development Platform)

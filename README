@@ -9,8 +9,10 @@ Dependencies
 This layer depends on:
 
   URI: git://git.yoctoproject.org/poky
+  branch: pyro
 
   URI: git://git.openembedded.org/meta-openembedded
+  branch: pyro
 
 Patches
 =======

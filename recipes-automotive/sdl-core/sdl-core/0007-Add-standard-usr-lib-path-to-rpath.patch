@@ -1,0 +1,25 @@
+From d6d9fdf751ef9784f87a6dc499ca493860b46f8a Mon Sep 17 00:00:00 2001
+From: Phong Tran <tranmanphong@gmail.com>
+Date: Thu, 21 Dec 2017 23:49:53 +0700
+Subject: [PATCH 7/7] Add standard /usr/lib path to rpath
+
+Signed-off-by: Phong Tran <tranmanphong@gmail.com>
+---
+ CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 8c2879c..8d6f563 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -415,6 +415,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "QNX")
+ endif()
+ 
+ SET(RPATH_DIRECTORIES
++  ${CMAKE_INSTALL_LIBDIR}
+   ${CMAKE_INSTALL_PREFIX}/bin/plugins
+   /usr/local/lib
+   /usr/local
+-- 
+2.7.4
+

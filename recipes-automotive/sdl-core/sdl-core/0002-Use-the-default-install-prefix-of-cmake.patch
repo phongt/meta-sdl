@@ -1,7 +1,7 @@
-From d8ad50b2b193e7be393f39d2ce860fc3e7bd9bdf Mon Sep 17 00:00:00 2001
+From ee4963a1bfff65e9a644d39a119b56ac7fe6ac52 Mon Sep 17 00:00:00 2001
 From: Phong Tran <tranmanphong@gmail.com>
 Date: Sun, 17 Jul 2016 08:41:03 +0700
-Subject: [PATCH 3/7] Use the default install prefix of cmake
+Subject: [PATCH 2/7] Use the default install prefix of cmake
 
 It's better to use the oe cmake install prefix instead of
 the current value. This is for avoiding the wrong
@@ -13,10 +13,10 @@ Signed-off-by: Phong Tran <tranmanphong@gmail.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 791b052..99a490a 100644
+index df3cddc..4ca8f00 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -181,7 +181,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+@@ -193,7 +193,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
  
  # Please do not change compiler/linker flags if You do not know how particular
  # flag is handled by CMake
@@ -26,5 +26,5 @@ index 791b052..99a490a 100644
  
  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=gnu++0x -Wall -Werror -Wno-deprecated-declarations -Wuninitialized -Wvla")
 -- 
-1.9.1
+2.7.4
 

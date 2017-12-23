@@ -19,23 +19,21 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=37fc754617a4cd43d221b3042dc1be11 \
                     file://src/3rd_party-static/gmock-1.7.0/scripts/generator/LICENSE;md5=2c0b90db7465231447cf2dd2e8163333 \
                     file://src/3rd_party-static/gmock-1.7.0/gtest/LICENSE;md5=cbbd27594afd089daa160d3a16dd515a"
 
-SRC_URI = "git://github.com/smartdevicelink/sdl_core.git;branch=release/4.1_LTS"
+SRC_URI = "git://github.com/smartdevicelink/sdl_core.git;branch=master"
 
 SRC_URI_append = " \
     file://0001-add-the-default-cmake-cxx-flag-for-oe.patch \
-    file://0003-Use-the-default-install-prefix-of-cmake.patch \
-    file://0004-disable-building-sdl-tools.patch \
-    file://0005-Change-to-use-standard-libdir.patch \
-    file://0006-Fix-the-warning-uninitied-value-for-navi-tts.patch \
-    file://0007-Fix-make-error-with-race-condition.patch \
-    file://0008-add-env-for-log4cxx-properties-path.patch \
-    file://0009-Install-the-configure-file-to-sysconf-dir.patch \
-    file://0011-Do-not-install-the-sample-web-HMI.patch \
+    file://0002-Use-the-default-install-prefix-of-cmake.patch \
+    file://0003-disable-building-sdl-tools.patch \
+    file://0004-Change-to-use-standard-libdir.patch \
+    file://0005-add-env-for-log4cxx-properties-path.patch \
+    file://0006-Install-the-configure-file-to-sysconf-dir.patch \
+    file://0007-Add-standard-usr-lib-path-to-rpath.patch \
     file://smartdevicelink.service \
 "
 
-PV = "4.1.0+git${SRCPV}"
-SRCREV = "5043a62c8ec6bc7248c1ba5fee3f58eefc708bc4"
+PV = "4.4.1"
+SRCREV = "61c37f3763b7f84dca8f42ffdaa705d454d1b711"
 
 S = "${WORKDIR}/git"
 
@@ -51,7 +49,7 @@ RDEPENDS_${PN}_append = " pulseaudio-module-bluez5-device"
 
 
 
-DEPENDS_append = " avahi bluez5 glib-2.0 sqlite3 log4cxx dbus openssl libusb1"
+DEPENDS_append = " avahi bluez5 glib-2.0 sqlite3 log4cxx dbus openssl libusb1 bson-c-lib"
 DEPENDS_append = " gstreamer1.0 gstreamer1.0-plugins-good"
 DEPENDS_append = " gstreamer1.0-rtsp-server pulseaudio"
 
@@ -59,6 +57,7 @@ export THIRD_PARTY_INSTALL_PREFIX="${STAGING_DIR_TARGET}"
 export GSTREAMER_DIR="${STAGING_LIBDIR}/gstreamer-1.0"
 EXTRA_OECMAKE_append = " -DNO_REBUILD_3RD_PARTY=ON"
 EXTRA_OECMAKE_append = " -DEXTENDED_MEDIA_MODE=ON"
+EXTRA_OECMAKE_append = " -DUSE_CCACHE=OFF"
 PARALLEL_MAKE = ""
 
 cmake_do_generate_toolchain_file_append() {

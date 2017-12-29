@@ -29,6 +29,8 @@ SRC_URI_append = " \
     file://0005-add-env-for-log4cxx-properties-path.patch \
     file://0006-Install-the-configure-file-to-sysconf-dir.patch \
     file://0007-Add-standard-usr-lib-path-to-rpath.patch \
+    file://0001-fix-bugs-to-allow-build-with-gcc-7.2.0-under-Ubuntu-.patch \
+    file://0002-remove-unused-code.patch \
     file://smartdevicelink.service \
 "
 

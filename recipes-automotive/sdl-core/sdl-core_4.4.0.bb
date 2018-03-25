@@ -61,6 +61,7 @@ EXTRA_OECMAKE_append = " -DNO_REBUILD_3RD_PARTY=ON"
 EXTRA_OECMAKE_append = " -DEXTENDED_MEDIA_MODE=ON"
 EXTRA_OECMAKE_append = " -DUSE_CCACHE=OFF"
 EXTRA_OECMAKE_append = " -DCMAKE_BUILD_TYPE=RelWithDebInfo"
+EXTRA_OECMAKE_append = " -DUSE_GOLD_LD=OFF"
 PARALLEL_MAKE = ""
 
 cmake_do_generate_toolchain_file_append() {

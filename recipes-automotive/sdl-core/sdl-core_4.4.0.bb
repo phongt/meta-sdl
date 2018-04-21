@@ -21,7 +21,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=37fc754617a4cd43d221b3042dc1be11 \
 
 SRC_URI = "git://github.com/smartdevicelink/sdl_core.git;branch=master"
 
-SRC_URI_append = " \
+SRC_URI += " \
     file://0001-add-the-default-cmake-cxx-flag-for-oe.patch \
     file://0002-Use-the-default-install-prefix-of-cmake.patch \
     file://0003-disable-building-sdl-tools.patch \
@@ -31,6 +31,7 @@ SRC_URI_append = " \
     file://0007-Add-standard-usr-lib-path-to-rpath.patch \
     file://0001-fix-bugs-to-allow-build-with-gcc-7.2.0-under-Ubuntu-.patch \
     file://0002-remove-unused-code.patch \
+    file://0001-Unbreak-build-when-BUILD_BT_SUPPORT-OFF.patch \
     file://smartdevicelink.service \
 "
 
@@ -41,27 +42,29 @@ S = "${WORKDIR}/git"
 
 inherit cmake pythonnative systemd
 
-# Needed to get bluetooth working
-RDEPENDS_${PN}_append = " pulseaudio-module-bluetooth-discover"
-RDEPENDS_${PN}_append = " pulseaudio-module-bluetooth-policy"
-RDEPENDS_${PN}_append = " pulseaudio-module-alsa-sink"
-RDEPENDS_${PN}_append = " pulseaudio-module-switch-on-connect"
-RDEPENDS_${PN}_append = " pulseaudio-module-bluez5-discover"
-RDEPENDS_${PN}_append = " pulseaudio-module-bluez5-device"
+# The Bluetooth support in the source code is written in terms of Bluez and Pulseaudio. So both must
+# be enabled in the distribution for the option to be activated.
+PACKAGECONFIG_BLUETOOTH ?= "${@bb.utils.contains('DISTRO_FEATURES', 'bluetooth pulseaudio', 'bluez5', '', d)}"
 
+# The extended media support uses Pulseaudio
+PACKAGECONFIG_PULSEAUDIO ?= "${@bb.utils.contains('DISTRO_FEATURES', 'pulseaudio', 'pulseaudio', '', d)}"
 
+PACKAGECONFIG ??= "${PACKAGECONFIG_BLUETOOTH} ${PACKAGECONFIG_PULSEAUDIO}"
 
-DEPENDS_append = " avahi bluez5 glib-2.0 sqlite3 log4cxx dbus openssl libusb1 bson-c-lib"
-DEPENDS_append = " gstreamer1.0 gstreamer1.0-plugins-good"
-DEPENDS_append = " gstreamer1.0-rtsp-server pulseaudio"
+PACKAGECONFIG[bluez5] = "-DBUILD_BT_SUPPORT=ON,-DBUILD_BT_SUPPORT=OFF,bluez5 pulseaudio,pulseaudio-module-bluetooth-discover pulseaudio-module-bluetooth-policy pulseaudio-module-switch-on-connect pulseaudio-module-bluez5-discover pulseaudio-module-bluez5-device bluez-tools"
+
+PACKAGECONFIG[pulseaudio] = "-DEXTENDED_MEDIA_MODE=ON,-DEXTENDED_MEDIA_MODE=OFF,pulseaudio,pulseaudio-module-alsa-sink"
+
+DEPENDS += "avahi glib-2.0 sqlite3 log4cxx dbus openssl libusb1 bson-c-lib"
+DEPENDS += "gstreamer1.0 gstreamer1.0-plugins-good"
+DEPENDS += "gstreamer1.0-rtsp-server"
 
 export THIRD_PARTY_INSTALL_PREFIX="${STAGING_DIR_TARGET}"
 export GSTREAMER_DIR="${STAGING_LIBDIR}/gstreamer-1.0"
-EXTRA_OECMAKE_append = " -DNO_REBUILD_3RD_PARTY=ON"
-EXTRA_OECMAKE_append = " -DEXTENDED_MEDIA_MODE=ON"
-EXTRA_OECMAKE_append = " -DUSE_CCACHE=OFF"
-EXTRA_OECMAKE_append = " -DCMAKE_BUILD_TYPE=RelWithDebInfo"
-EXTRA_OECMAKE_append = " -DUSE_GOLD_LD=OFF"
+EXTRA_OECMAKE += "-DNO_REBUILD_3RD_PARTY=ON"
+EXTRA_OECMAKE += "-DUSE_CCACHE=OFF"
+EXTRA_OECMAKE += "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
+EXTRA_OECMAKE += "-DUSE_GOLD_LD=OFF"
 PARALLEL_MAKE = ""
 
 cmake_do_generate_toolchain_file_append() {
@@ -81,12 +84,17 @@ do_install_append() {
     if ${@bb.utils.contains('DISTRO_FEATURES', 'systemd', 'true', 'false', d)}; then
         install -d ${D}${systemd_unitdir}/system
         install -m 644 ${WORKDIR}/smartdevicelink.service ${D}${systemd_unitdir}/system/smartdevicelink.service
+
+        if ${@bb.utils.contains('PACKAGECONFIG', 'bluez5', 'false', 'true', d)}; then
+            sed -i -e '/Requires=bluetooth.service/d' \
+                -e '/After=bluetooth.service/d' \
+                ${D}${systemd_unitdir}/system/smartdevicelink.service
+        fi
     fi
 }
 
 SYSTEMD_SERVICE_${PN} = "smartdevicelink.service"
 
-RDEPENDS_${PN} += " bluez-tools"
 RDEPENDS_${PN} += " bash"
 
 PACKAGES = " \

@@ -1,0 +1,119 @@
+From ca7f596bf905f491f4984ae9afc98da055eaa08f Mon Sep 17 00:00:00 2001
+From: Phong Tran <tranmanphong@gmail.com>
+Date: Sat, 9 Jun 2018 23:09:28 +0700
+Subject: [PATCH 09/10] Function GetDataOnSessionKey cannot be overloade
+
+Temp solution for
+https://github.com/smartdevicelink/sdl_core/issues/2137
+comment of @shoamano83
+
+Signed-off-by: Phong Tran <tranmanphong@gmail.com>
+---
+ .../include/connection_handler/connection_handler_impl.h  | 14 --------------
+ .../connection_handler/src/connection_handler_impl.cc     | 12 ------------
+ .../include/connection_handler/connection_handler.h       | 15 ---------------
+ .../include/protocol_handler/session_observer.h           | 14 --------------
+ 4 files changed, 55 deletions(-)
+
+diff --git a/src/components/connection_handler/include/connection_handler/connection_handler_impl.h b/src/components/connection_handler/include/connection_handler/connection_handler_impl.h
+index 66b2d7c..e270d9f 100644
+--- a/src/components/connection_handler/include/connection_handler/connection_handler_impl.h
++++ b/src/components/connection_handler/include/connection_handler/connection_handler_impl.h
+@@ -503,20 +503,6 @@ class ConnectionHandlerImpl
+       std::list<int32_t>* sessions_list,
+       connection_handler::DeviceHandle* device_id) const OVERRIDE;
+ 
+-  /**
+-   * DEPRECATED
+-   * \brief information about given Connection Key.
+-   * \param key Unique key used by other components as session identifier
+-   * \param app_id Returned: ApplicationID
+-   * \param sessions_list Returned: List of session keys
+-   * \param device_id Returned: DeviceID
+-   * \return int32_t -1 in case of error or 0 in case of success
+-   */
+-  int32_t GetDataOnSessionKey(uint32_t key,
+-                              uint32_t* app_id,
+-                              std::list<int32_t>* sessions_list,
+-                              uint32_t* device_id) const OVERRIDE;
+-
+   const ConnectionHandlerSettings& get_settings() const OVERRIDE;
+ 
+   const protocol_handler::SessionObserver& get_session_observer();
+diff --git a/src/components/connection_handler/src/connection_handler_impl.cc b/src/components/connection_handler/src/connection_handler_impl.cc
+index 5b26304..a9809c5 100644
+--- a/src/components/connection_handler/src/connection_handler_impl.cc
++++ b/src/components/connection_handler/src/connection_handler_impl.cc
+@@ -716,18 +716,6 @@ int32_t ConnectionHandlerImpl::GetDataOnSessionKey(
+   return 0;
+ }
+ 
+-int32_t ConnectionHandlerImpl::GetDataOnSessionKey(
+-    uint32_t key,
+-    uint32_t* app_id,
+-    std::list<int32_t>* sessions_list,
+-    uint32_t* device_id) const {
+-  LOG4CXX_AUTO_TRACE(logger_);
+-  DeviceHandle handle;
+-  int32_t result = GetDataOnSessionKey(key, app_id, sessions_list, &handle);
+-  *device_id = static_cast<uint32_t>(handle);
+-  return result;
+-}
+-
+ const ConnectionHandlerSettings& ConnectionHandlerImpl::get_settings() const {
+   return settings_;
+ }
+diff --git a/src/components/include/connection_handler/connection_handler.h b/src/components/include/connection_handler/connection_handler.h
+index 1fcf5e4..352f886 100644
+--- a/src/components/include/connection_handler/connection_handler.h
++++ b/src/components/include/connection_handler/connection_handler.h
+@@ -183,21 +183,6 @@ class ConnectionHandler {
+       connection_handler::DeviceHandle* device_id) const = 0;
+ 
+   /**
+-   * DEPRECATED
+-   * \brief information about given Connection Key.
+-   * \param key Unique key used by other components as session identifier
+-   * \param app_id Returned: ApplicationID
+-   * \param sessions_list Returned: List of session keys
+-   * \param device_id Returned: DeviceID
+-   * \return int32_t -1 in case of error or 0 in case of success
+-   */
+-  DEPRECATED virtual int32_t GetDataOnSessionKey(
+-      uint32_t key,
+-      uint32_t* app_id,
+-      std::list<int32_t>* sessions_list,
+-      uint32_t* device_id) const = 0;
+-
+-  /**
+    * @brief GetConnectedDevicesMAC allows to obtain MAC adresses for all
+    * currently connected devices.
+    *
+diff --git a/src/components/include/protocol_handler/session_observer.h b/src/components/include/protocol_handler/session_observer.h
+index 3482c65..7e87b6f 100644
+--- a/src/components/include/protocol_handler/session_observer.h
++++ b/src/components/include/protocol_handler/session_observer.h
+@@ -231,20 +231,6 @@ class SessionObserver {
+                            uint8_t* sessionId) const = 0;
+ 
+   /**
+-   * DEPRECATED
+-   * \brief information about given Connection Key.
+-   * \param key Unique key used by other components as session identifier
+-   * \param app_id Returned: ApplicationID
+-   * \param sessions_list Returned: List of session keys
+-   * \param device_id Returned: DeviceID
+-   * \return int32_t -1 in case of error or 0 in case of success
+-   */
+-  virtual int32_t GetDataOnSessionKey(uint32_t key,
+-                                      uint32_t* app_id,
+-                                      std::list<int32_t>* sessions_list,
+-                                      uint32_t* device_id) const = 0;
+-
+-  /**
+    * \brief information about given Connection Key.
+    * \param key Unique key used by other components as session identifier
+    * \param app_id Returned: ApplicationID
+-- 
+2.7.4
+

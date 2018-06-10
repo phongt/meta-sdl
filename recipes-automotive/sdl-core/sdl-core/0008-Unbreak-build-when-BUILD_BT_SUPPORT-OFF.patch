@@ -1,18 +1,20 @@
-From b855147b17f00a7fcbe8d7a53970a24505737cda Mon Sep 17 00:00:00 2001
+From 626676fab6a98041d1da32872df0fe79103705da Mon Sep 17 00:00:00 2001
 From: Matt Hoosier <matt.hoosier@garmin.com>
 Date: Wed, 18 Apr 2018 11:48:30 -0500
-Subject: [PATCH] Unbreak build when BUILD_BT_SUPPORT=OFF
+Subject: [PATCH 08/10] Unbreak build when BUILD_BT_SUPPORT=OFF
 
 Fixes a logic error in computing source-exclusion lists.
+
+%% original patch: 0001-Unbreak-build-when-BUILD_BT_SUPPORT-OFF.patch
 ---
  src/components/transport_manager/CMakeLists.txt | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/src/components/transport_manager/CMakeLists.txt b/src/components/transport_manager/CMakeLists.txt
-index 8c7980a..ae80fe1 100644
+index 4fa2243..c31cb2b 100644
 --- a/src/components/transport_manager/CMakeLists.txt
 +++ b/src/components/transport_manager/CMakeLists.txt
-@@ -69,7 +69,7 @@ endif()
+@@ -68,13 +68,13 @@ endif()
  
  if(BUILD_USB_SUPPORT)
    if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
@@ -21,9 +23,7 @@ index 8c7980a..ae80fe1 100644
        ${COMPONENTS_DIR}/transport_manager/include/transport_manager/usb/qnx
        ${COMPONENTS_DIR}/transport_manager/src/usb/qnx
      )
-@@ -77,7 +77,7 @@ if(BUILD_USB_SUPPORT)
-       Libusb-1.0.16
-     )
+ 
    elseif(CMAKE_SYSTEM_NAME STREQUAL "QNX")
 -    set(EXCLUDE_PATHS
 +    list(APPEND EXCLUDE_PATHS
@@ -31,5 +31,5 @@ index 8c7980a..ae80fe1 100644
        ${COMPONENTS_DIR}/transport_manager/src/usb/libusb
      )
 -- 
-1.9.1
+2.7.4
 

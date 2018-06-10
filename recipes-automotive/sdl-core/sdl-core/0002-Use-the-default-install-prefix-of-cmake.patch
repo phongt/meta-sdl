@@ -1,22 +1,24 @@
-From ee4963a1bfff65e9a644d39a119b56ac7fe6ac52 Mon Sep 17 00:00:00 2001
+From 91d7636467b6bb73ed843c16c35da63455872446 Mon Sep 17 00:00:00 2001
 From: Phong Tran <tranmanphong@gmail.com>
 Date: Sun, 17 Jul 2016 08:41:03 +0700
-Subject: [PATCH 2/7] Use the default install prefix of cmake
+Subject: [PATCH 02/10] Use the default install prefix of cmake
 
 It's better to use the oe cmake install prefix instead of
 the current value. This is for avoiding the wrong
 installation path while do_install().
 
 Signed-off-by: Phong Tran <tranmanphong@gmail.com>
+
+%% original patch: 0002-Use-the-default-install-prefix-of-cmake.patch
 ---
  CMakeLists.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index df3cddc..4ca8f00 100644
+index f1dc97a..732b601 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -193,7 +193,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+@@ -189,7 +189,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
  
  # Please do not change compiler/linker flags if You do not know how particular
  # flag is handled by CMake

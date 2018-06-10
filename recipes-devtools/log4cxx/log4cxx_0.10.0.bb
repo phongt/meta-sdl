@@ -5,7 +5,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57"
 HOMEPAGE = "http://logging.apache.org/log4cxx/"
 
-SRC_URI = "git://github.com/smartdevicelink/sdl_core.git;branch=release/4.1_LTS"
+SRC_URI = "git://github.com/smartdevicelink/sdl_core.git;branch=master"
 SRC_URI_append = " \
     file://0001-LOGCXX-413-doesn-t-compile-on-openembedded-thanks-to.patch \
     file://0002-LOGCXX-414-possibly-wrong-use-of-autotools-docdir-th.patch \
@@ -13,7 +13,7 @@ SRC_URI_append = " \
     file://svn-log4cxx-rev-1751050.patch \
 "
 
-SRCREV = "843300ec8621cde9b7c992b99e296b7f69f10613"
+SRCREV = "7f7fcbb998fb17f2954fd103349af67ea9b71a3f"
 
 S = "${WORKDIR}/git/src/3rd_party/apache-${PN}-${PV}"
 

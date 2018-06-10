@@ -1,19 +1,21 @@
-From f755356be19d1e1b0ae91315f8749c69479c6b3e Mon Sep 17 00:00:00 2001
+From 570405af8e5c874db1852bdfb333ec0c941093ac Mon Sep 17 00:00:00 2001
 From: Phong Tran <tranmanphong@gmail.com>
 Date: Sun, 12 Feb 2017 16:54:48 +0700
-Subject: [PATCH 5/7] add env for log4cxx properties path
+Subject: [PATCH 05/10] add env for log4cxx properties path
 
 Add the env variable SDL_LOG4CXX_PROPERTIES_FILE
 to indicate the path of log4cxx configure file.
+
+%% original patch: 0005-add-env-for-log4cxx-properties-path.patch
 ---
  src/appMain/main.cc | 9 +++++++--
  1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/src/appMain/main.cc b/src/appMain/main.cc
-index 81482c4..d2d2601 100644
+index feb5b58..08e65f7 100644
 --- a/src/appMain/main.cc
 +++ b/src/appMain/main.cc
-@@ -134,8 +134,13 @@ int32_t main(int32_t argc, char** argv) {
+@@ -112,8 +112,13 @@ int32_t main(int32_t argc, char** argv) {
  
    // --------------------------------------------------------------------------
    // Logger initialization

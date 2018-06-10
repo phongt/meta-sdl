@@ -1,11 +1,13 @@
-From 34f1146449d8695bdc74600ded1df32cc544e03f Mon Sep 17 00:00:00 2001
+From 855e1548269d830b07962a72fa17100193de35f3 Mon Sep 17 00:00:00 2001
 From: Phong Tran <tranmanphong@gmail.com>
 Date: Sun, 17 Jul 2016 14:03:13 +0700
-Subject: [PATCH 4/7] Change to use standard libdir
+Subject: [PATCH 04/10] Change to use standard libdir
 
 The lib*.so should be in /usr/lib path.
 
 Signed-off-by: Phong Tran <tranmanphong@gmail.com>
+
+%% original patch: 0004-Change-to-use-standard-libdir.patch
 ---
  src/components/policy/policy_external/CMakeLists.txt | 4 ++--
  src/components/policy/policy_regular/CMakeLists.txt  | 2 +-

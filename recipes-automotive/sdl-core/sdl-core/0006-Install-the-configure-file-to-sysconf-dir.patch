@@ -1,18 +1,20 @@
-From 79e6ee3d7b8086e17fec3f0bc3287e4f515d004f Mon Sep 17 00:00:00 2001
+From ca30ea45d91b9ec15ea456ce4492575bee571c56 Mon Sep 17 00:00:00 2001
 From: Phong Tran <tranmanphong@gmail.com>
 Date: Tue, 19 Dec 2017 23:43:56 +0700
-Subject: [PATCH 6/7] Install the configure file to sysconf dir
+Subject: [PATCH 06/10] Install the configure file to sysconf dir
 
 Use CMAKE_INSTALL_SYSCONFDIR for sdl configure files.
+
+%% original patch: 0006-Install-the-configure-file-to-sysconf-dir.patch
 ---
  src/appMain/CMakeLists.txt | 22 +++++++++++-----------
  1 file changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/src/appMain/CMakeLists.txt b/src/appMain/CMakeLists.txt
-index 88c2d75..14df224 100644
+index 5148676..f6d8093 100644
 --- a/src/appMain/CMakeLists.txt
 +++ b/src/appMain/CMakeLists.txt
-@@ -156,15 +156,15 @@ target_link_libraries(${PROJECT} ${LIBRARIES})
+@@ -155,15 +155,15 @@ target_link_libraries(${PROJECT} ${LIBRARIES})
  
  add_dependencies(${PROJECT} Policy)
  
@@ -37,7 +39,7 @@ index 88c2d75..14df224 100644
  if (CMAKE_SYSTEM_NAME STREQUAL "QNX")
    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/init_policy.sh DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
  endif ()
-@@ -216,12 +216,12 @@ install(
+@@ -215,12 +215,12 @@ install(
    FILES log4cxx.properties audio.8bit.wav test.txt smartDeviceLink.ini
      hmi_capabilities.json sdl_preloaded_pt.json sample_policy_manager.py
      ${CMAKE_SOURCE_DIR}/mycert.pem ${CMAKE_SOURCE_DIR}/mykey.pem

@@ -4,8 +4,7 @@ DESCRIPTION = "SmartDeviceLink (SDL) is a standard set of protocols and messages
 HOMEPAGE = "https://www.smartdevicelink.com"
 LICENSE = "BSD-3-Clause"
 
-LIC_FILES_CHKSUM = "file://LICENSE;md5=37fc754617a4cd43d221b3042dc1be11 \
-                    file://src/3rd_party/dbus-1.7.8/COPYING;md5=10dded3b58148f3f1fd804b26354af3e \
+LIC_FILES_CHKSUM = "file://LICENSE;md5=ecc58617265863ee517caa91580a143d \
                     file://src/3rd_party/expat-2.1.0/COPYING;md5=1b71f681713d1256e1c23b0890920874 \
                     file://src/3rd_party/apr-1.5.0/LICENSE;md5=4dfd4cd216828c8cae5de5a12f3844c8 \
                     file://src/3rd_party/apr-util-1.5.3/LICENSE;md5=519e0a18e03f7c023070568c14b077bb \
@@ -29,14 +28,14 @@ SRC_URI += " \
     file://0005-add-env-for-log4cxx-properties-path.patch \
     file://0006-Install-the-configure-file-to-sysconf-dir.patch \
     file://0007-Add-standard-usr-lib-path-to-rpath.patch \
-    file://0001-fix-bugs-to-allow-build-with-gcc-7.2.0-under-Ubuntu-.patch \
-    file://0002-remove-unused-code.patch \
-    file://0001-Unbreak-build-when-BUILD_BT_SUPPORT-OFF.patch \
+    file://0008-Unbreak-build-when-BUILD_BT_SUPPORT-OFF.patch \
+    file://0009-Function-GetDataOnSessionKey-cannot-be-overloade.patch \
+    file://0010-fix-error-of-WriteHandshakeData-return-value.patch \
     file://smartdevicelink.service \
 "
 
-PV = "4.4.1"
-SRCREV = "61c37f3763b7f84dca8f42ffdaa705d454d1b711"
+PV = "4.5.1"
+SRCREV = "7f7fcbb998fb17f2954fd103349af67ea9b71a3f"
 
 S = "${WORKDIR}/git"
 
@@ -58,6 +57,7 @@ PACKAGECONFIG[pulseaudio] = "-DEXTENDED_MEDIA_MODE=ON,-DEXTENDED_MEDIA_MODE=OFF,
 DEPENDS += "avahi glib-2.0 sqlite3 log4cxx dbus openssl libusb1 bson-c-lib"
 DEPENDS += "gstreamer1.0 gstreamer1.0-plugins-good"
 DEPENDS += "gstreamer1.0-rtsp-server"
+DEPENDS += "boost"
 
 export THIRD_PARTY_INSTALL_PREFIX="${STAGING_DIR_TARGET}"
 export GSTREAMER_DIR="${STAGING_LIBDIR}/gstreamer-1.0"

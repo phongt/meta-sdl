@@ -1,19 +1,21 @@
-From 83d26b6a4b9f5ee3779513c86a004d315d55786b Mon Sep 17 00:00:00 2001
+From acc1b869e52e1c2e7dba0b534bca34a1e7da8404 Mon Sep 17 00:00:00 2001
 From: Phong Tran <tranmanphong@gmail.com>
 Date: Tue, 19 Jul 2016 07:16:24 +0700
-Subject: [PATCH 1/7] add the default cmake cxx flag for oe
+Subject: [PATCH 01/10] add the default cmake cxx flag for oe
 
 Signed-off-by: Phong Tran <tranmanphong@gmail.com>
+
+%% original patch: 0001-add-the-default-cmake-cxx-flag-for-oe.patch
 ---
  CMakeLists.txt                                  | 6 +++---
  src/components/functional_module/CMakeLists.txt | 2 +-
  2 files changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index b8fd497..df3cddc 100644
+index 450a919..f1dc97a 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -76,8 +76,8 @@ set(POLICY_OPTION 	"$ENV{POLICY_TYPE}")
+@@ -75,8 +75,8 @@ set(POLICY_OPTION 	"$ENV{POLICY_TYPE}")
  set(SECURITY_OPTION 	"$ENV{SECURITY_MODE}")
  set(COMPONENTS_DIR ${CMAKE_SOURCE_DIR}/src/components)
  set(SNAPSHOT_TAG 	"$ENV{SNAPSHOT_TAG}")
@@ -24,7 +26,7 @@ index b8fd497..df3cddc 100644
  set(BUILDDIR "$ENV{BUILDDIR}")
  
  if (ARCH_TYPE_OPTION)
-@@ -196,7 +196,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+@@ -192,7 +192,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
  set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR})
  set(ARCHIVE_OUTPUT_DIRECTORY ./bin)
  

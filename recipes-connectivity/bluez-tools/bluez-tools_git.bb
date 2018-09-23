@@ -6,7 +6,8 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=12f884d2ae1ff87c09e5b7ccc2c4ca7e"
 RDEPENDS_${PN} = "bluez5 obexd"
 DEPENDS = "glib-2.0 dbus-glib readline"
 
-PR = "r3+gitr${SRCPV}"
+PV = "0.2.0+git${SRCPV}"
+PR = "r3"
 
 SRCREV = "97efd293491ad7ec96a655665339908f2478b3d1"
 

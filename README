@@ -9,10 +9,10 @@ Dependencies
 This layer depends on:
 
   URI: git://git.yoctoproject.org/poky
-  branch: sumo
+  branch: thud
 
   URI: git://git.openembedded.org/meta-openembedded
-  branch: sumo
+  branch: thud
 
 Patches
 =======
@@ -41,7 +41,8 @@ other layers needed. e.g.:
 
   $ source poky/oe-init-build-env build
   $ bitbake-layers add-layer /path/to/meta-openembedded/meta-oe/
-  $ bitbake-layers add-layer /path/to/meta-openembedded/meta-gnome/
+  $ bitbake-layers add-layer /path/to/meta-openembedded/meta-networking/
+  $ bitbake-layers add-layer /path/to/meta-openembedded/meta-python/
   $ bitbake-layers add-layer /path/to/meta-sdl/
 
   configure in local.conf for install sdl-core

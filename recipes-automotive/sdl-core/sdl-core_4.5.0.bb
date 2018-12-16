@@ -65,7 +65,8 @@ EXTRA_OECMAKE += "-DNO_REBUILD_3RD_PARTY=ON"
 EXTRA_OECMAKE += "-DUSE_CCACHE=OFF"
 EXTRA_OECMAKE += "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
 EXTRA_OECMAKE += "-DUSE_GOLD_LD=OFF"
-PARALLEL_MAKE = ""
+#FixMe: current with thud openssl 1.1.1. some interfaces were changed disable security...
+EXTRA_OECMAKE += "-DENABLE_SECURITY=OFF"
 
 cmake_do_generate_toolchain_file_append() {
     cat >> ${WORKDIR}/toolchain.cmake <<EOF

@@ -1,0 +1,28 @@
+From ffb526f25d7888b5ff2caa3f8298ef41803fbe68 Mon Sep 17 00:00:00 2001
+From: Jordan Salm <jordans@validmanufacturing.com>
+Date: Fri, 24 Jan 2020 09:08:53 -0800
+Subject: [PATCH 08/10] Prepend the correct sysroot prefix to the
+ libbson/libemhashmap libdirs
+
+---
+ src/3rd_party/CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/3rd_party/CMakeLists.txt b/src/3rd_party/CMakeLists.txt
+index 951c437e59..4c83fe8b5a 100644
+--- a/src/3rd_party/CMakeLists.txt
++++ b/src/3rd_party/CMakeLists.txt
+@@ -200,8 +200,8 @@ if ((NOT "${BSON_FOUND}") OR ("${BSON_VERSION}" VERSION_LESS "1.2.0"))
+       INSTALL_COMMAND ${BSON_INSTALL_COMMAND}
+       UPDATE_COMMAND git pull)
+ else()
+-  set(BSON_LIBS_DIRECTORY ${BSON_LIBDIR} CACHE INTERNAL "Installation path of bson libraries" FORCE)
+-  set(EMHASHMAP_LIBS_DIRECTORY ${BSON_LIBDIR} CACHE INTERNAL "Installation path of emashmap libraries" FORCE)
++  set(BSON_LIBS_DIRECTORY ${3RD_PARTY_INSTALL_PREFIX}/${BSON_LIBDIR} CACHE INTERNAL "Installation path of bson libraries" FORCE)
++  set(EMHASHMAP_LIBS_DIRECTORY ${3RD_PARTY_INSTALL_PREFIX}/${BSON_LIBDIR} CACHE INTERNAL "Installation path of emashmap libraries" FORCE)
+   add_custom_target(
+       libbson
+       DEPENDS ${BSON_LIBS_DIRECTORY}
+-- 
+2.24.1
+

@@ -1,0 +1,24 @@
+From 0f43a33bbc3fe25f2369a5686191431c34000bc3 Mon Sep 17 00:00:00 2001
+From: Jordan Salm <jordans@validmanufacturing.com>
+Date: Thu, 23 Jan 2020 10:21:51 -0800
+Subject: [PATCH 1/1] standard pkgconfig location
+
+---
+ Makefile.am | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile.am b/Makefile.am
+index 5ccc62f..5abb756 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -1,6 +1,6 @@
+ ACLOCAL_AMFLAGS = -I m4
+ AUTOMAKE_OPTIONS = foreign
+-confdir = $(sysconfdir)
++confdir = $(libdir)/pkgconfig
+ conf_DATA = libbson.pc
+ SUBDIRS = src
+ if BUILD_LUA
+-- 
+2.20.1
+

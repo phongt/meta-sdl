@@ -1,23 +1,22 @@
-From ca30ea45d91b9ec15ea456ce4492575bee571c56 Mon Sep 17 00:00:00 2001
-From: Phong Tran <tranmanphong@gmail.com>
-Date: Tue, 19 Dec 2017 23:43:56 +0700
-Subject: [PATCH 06/10] Install the configure file to sysconf dir
+From bb1ae4703d8571cc0f60cdfd15f8bce4c4fb1417 Mon Sep 17 00:00:00 2001
+From: Jordan Salm <jordans@validmanufacturing.com>
+Date: Thu, 23 Jan 2020 14:09:08 -0800
+Subject: [PATCH 05/10] Install the configure file to sysconf dir
 
 Use CMAKE_INSTALL_SYSCONFDIR for sdl configure files.
-
-%% original patch: 0006-Install-the-configure-file-to-sysconf-dir.patch
 ---
- src/appMain/CMakeLists.txt | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ src/appMain/CMakeLists.txt | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
 diff --git a/src/appMain/CMakeLists.txt b/src/appMain/CMakeLists.txt
-index 5148676..f6d8093 100644
+index d543280d75..2795a64db5 100644
 --- a/src/appMain/CMakeLists.txt
 +++ b/src/appMain/CMakeLists.txt
-@@ -155,15 +155,15 @@ target_link_libraries(${PROJECT} ${LIBRARIES})
+@@ -159,16 +159,16 @@ endif()
+ target_link_libraries(${PROJECT} ${LIBRARIES})
  
  add_dependencies(${PROJECT} Policy)
- 
+-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/build_config.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 -file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/log4cxx.properties DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 -file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/audio.8bit.wav DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 -file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/test.txt DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
@@ -27,6 +26,7 @@ index 5148676..f6d8093 100644
 -file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/sample_policy_manager.py DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 -file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/start.sh DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 -file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/start_external_proprietary.sh DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
++install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/build_config.txt DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink COMPONENT config)
 +install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/log4cxx.properties DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink COMPONENT config)
 +install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/audio.8bit.wav DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink COMPONENT config)
 +install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/test.txt DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/smartdevicelink COMPONENT config)
@@ -39,8 +39,8 @@ index 5148676..f6d8093 100644
  if (CMAKE_SYSTEM_NAME STREQUAL "QNX")
    file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/init_policy.sh DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
  endif ()
-@@ -215,12 +215,12 @@ install(
-   FILES log4cxx.properties audio.8bit.wav test.txt smartDeviceLink.ini
+@@ -220,12 +220,12 @@ install(
+   FILES build_config.txt log4cxx.properties audio.8bit.wav test.txt smartDeviceLink.ini
      hmi_capabilities.json sdl_preloaded_pt.json sample_policy_manager.py
      ${CMAKE_SOURCE_DIR}/mycert.pem ${CMAKE_SOURCE_DIR}/mykey.pem
 -  DESTINATION bin
@@ -55,5 +55,5 @@ index 5148676..f6d8093 100644
  
  if (${QT_HMI})
 -- 
-2.7.4
+2.24.1
 

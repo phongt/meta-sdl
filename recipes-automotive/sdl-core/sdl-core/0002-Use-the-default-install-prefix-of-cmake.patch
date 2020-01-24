@@ -1,24 +1,20 @@
-From 91d7636467b6bb73ed843c16c35da63455872446 Mon Sep 17 00:00:00 2001
-From: Phong Tran <tranmanphong@gmail.com>
-Date: Sun, 17 Jul 2016 08:41:03 +0700
+From 94e68ed800e6d41d02aa4df950f5c54d7847471f Mon Sep 17 00:00:00 2001
+From: Jordan Salm <jordans@validmanufacturing.com>
+Date: Thu, 23 Jan 2020 08:55:39 -0800
 Subject: [PATCH 02/10] Use the default install prefix of cmake
 
 It's better to use the oe cmake install prefix instead of
 the current value. This is for avoiding the wrong
 installation path while do_install().
-
-Signed-off-by: Phong Tran <tranmanphong@gmail.com>
-
-%% original patch: 0002-Use-the-default-install-prefix-of-cmake.patch
 ---
  CMakeLists.txt | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index f1dc97a..732b601 100644
+index 5efbf4f956..62b6ba281a 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -189,7 +189,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+@@ -233,7 +233,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
  
  # Please do not change compiler/linker flags if You do not know how particular
  # flag is handled by CMake
@@ -26,7 +22,7 @@ index f1dc97a..732b601 100644
 +# set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR})
  set(ARCHIVE_OUTPUT_DIRECTORY ./bin)
  
- set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=gnu++0x -Wall -Werror -Wno-deprecated-declarations -Wuninitialized -Wvla")
+ set(EXCLUDE_ERROR_FLAGS "-Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations")
 -- 
-2.7.4
+2.24.1
 

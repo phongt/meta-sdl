@@ -1,0 +1,133 @@
+From 721072955bae7bd24a5dc7c52049e62265486470 Mon Sep 17 00:00:00 2001
+From: Jordan Salm <jordans@validmanufacturing.com>
+Date: Fri, 24 Jan 2020 09:32:17 -0800
+Subject: [PATCH 06/10] Change to use standard libdir
+
+The lib*.so should be in /usr/lib path.
+---
+ .../rpc_plugins/app_service_rpc_plugin/CMakeLists.txt         | 2 +-
+ .../rpc_plugins/rc_rpc_plugin/CMakeLists.txt                  | 2 +-
+ .../rpc_plugins/sdl_rpc_plugin/CMakeLists.txt                 | 2 +-
+ .../rpc_plugins/vehicle_info_plugin/CMakeLists.txt            | 2 +-
+ src/components/policy/policy_external/CMakeLists.txt          | 4 ++--
+ src/components/policy/policy_regular/CMakeLists.txt           | 2 +-
+ src/components/utils/CMakeLists.txt                           | 2 +-
+ src/plugins/appenders/CMakeLists.txt                          | 2 +-
+ 8 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/src/components/application_manager/rpc_plugins/app_service_rpc_plugin/CMakeLists.txt b/src/components/application_manager/rpc_plugins/app_service_rpc_plugin/CMakeLists.txt
+index ef215cdd5a..9f01b75508 100644
+--- a/src/components/application_manager/rpc_plugins/app_service_rpc_plugin/CMakeLists.txt
++++ b/src/components/application_manager/rpc_plugins/app_service_rpc_plugin/CMakeLists.txt
+@@ -73,7 +73,7 @@ add_library("app_service_rpc_plugin" SHARED "src/app_service_rpc_plugin.cc")
+ target_link_libraries("app_service_rpc_plugin" app_service_rpc_plugin_static)
+ 
+ 
+-set(INSTALL_DESTINATION bin)
++set(INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 
+ install(TARGETS app_service_rpc_plugin
+   DESTINATION ${INSTALL_DESTINATION}
+diff --git a/src/components/application_manager/rpc_plugins/rc_rpc_plugin/CMakeLists.txt b/src/components/application_manager/rpc_plugins/rc_rpc_plugin/CMakeLists.txt
+index 8129e1240d..fe5c803809 100644
+--- a/src/components/application_manager/rpc_plugins/rc_rpc_plugin/CMakeLists.txt
++++ b/src/components/application_manager/rpc_plugins/rc_rpc_plugin/CMakeLists.txt
+@@ -70,7 +70,7 @@ add_library("rc_rpc_plugin" SHARED "src/rc_rpc_plugin.cc")
+ target_link_libraries("rc_rpc_plugin" rc_rpc_plugin_static)
+ 
+ 
+-set(INSTALL_DESTINATION bin)
++set(INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 
+ install(TARGETS rc_rpc_plugin
+   DESTINATION ${INSTALL_DESTINATION}
+diff --git a/src/components/application_manager/rpc_plugins/sdl_rpc_plugin/CMakeLists.txt b/src/components/application_manager/rpc_plugins/sdl_rpc_plugin/CMakeLists.txt
+index fe8857b6b1..da9babbec6 100644
+--- a/src/components/application_manager/rpc_plugins/sdl_rpc_plugin/CMakeLists.txt
++++ b/src/components/application_manager/rpc_plugins/sdl_rpc_plugin/CMakeLists.txt
+@@ -73,7 +73,7 @@ target_link_libraries("sdl_rpc_plugin_static" ${LIBRARIES})
+ add_library("sdl_rpc_plugin" SHARED "src/sdl_rpc_plugin.cc")
+ target_link_libraries("sdl_rpc_plugin" sdl_rpc_plugin_static)
+ 
+-set(INSTALL_DESTINATION bin)
++set(INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 
+ install(TARGETS sdl_rpc_plugin
+   DESTINATION ${INSTALL_DESTINATION}
+diff --git a/src/components/application_manager/rpc_plugins/vehicle_info_plugin/CMakeLists.txt b/src/components/application_manager/rpc_plugins/vehicle_info_plugin/CMakeLists.txt
+index 8c29cccfff..da4e9b9f77 100644
+--- a/src/components/application_manager/rpc_plugins/vehicle_info_plugin/CMakeLists.txt
++++ b/src/components/application_manager/rpc_plugins/vehicle_info_plugin/CMakeLists.txt
+@@ -65,7 +65,7 @@ add_library(vehicle_info_plugin SHARED "src/vehicle_info_plugin.cc" )
+ target_link_libraries(vehicle_info_plugin vehicle_info_plugin_static)
+ 
+ 
+-set(INSTALL_DESTINATION bin)
++set(INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ 
+ install(TARGETS vehicle_info_plugin
+   DESTINATION ${INSTALL_DESTINATION}
+diff --git a/src/components/policy/policy_external/CMakeLists.txt b/src/components/policy/policy_external/CMakeLists.txt
+index 361c48a598..966580df6a 100644
+--- a/src/components/policy/policy_external/CMakeLists.txt
++++ b/src/components/policy/policy_external/CMakeLists.txt
+@@ -31,7 +31,7 @@
+ include(${CMAKE_SOURCE_DIR}/tools/cmake/helpers/generators.cmake)
+ 
+ # --- Policy
+-set(install_destination bin)
++set(install_destination ${CMAKE_INSTALL_LIBDIR})
+ set(copy_destination ${CMAKE_BINARY_DIR}/src/appMain)
+ set(library_name ${CMAKE_SHARED_LIBRARY_PREFIX}Policy${CMAKE_SHARED_LIBRARY_SUFFIX})
+ 
+@@ -140,7 +140,7 @@ add_custom_target(copy_library_Policy ALL
+     COMMENT "Copying library ${library_name}")
+ 
+ install(TARGETS Policy
+-  DESTINATION ${install_destination}
++  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE
+     GROUP_READ GROUP_EXECUTE
+     WORLD_READ WORLD_EXECUTE
+diff --git a/src/components/policy/policy_regular/CMakeLists.txt b/src/components/policy/policy_regular/CMakeLists.txt
+index e14057ec89..036798bc29 100644
+--- a/src/components/policy/policy_regular/CMakeLists.txt
++++ b/src/components/policy/policy_regular/CMakeLists.txt
+@@ -156,7 +156,7 @@ endif()
+ 
+ set(LIBRARY_NAME ${CMAKE_SHARED_LIBRARY_PREFIX}Policy${CMAKE_SHARED_LIBRARY_SUFFIX})
+ set(TARGET_LOCATION ${CMAKE_CURRENT_BINARY_DIR}/${LIBRARY_NAME})
+-set(INSTALL_DESTINATION bin)
++set(INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR})
+ set(COPY_DESTINATION ${CMAKE_BINARY_DIR}/src/appMain)
+ 
+ add_custom_target(copy_policy_library ALL
+diff --git a/src/components/utils/CMakeLists.txt b/src/components/utils/CMakeLists.txt
+index 451a8a629e..a830bd65e1 100644
+--- a/src/components/utils/CMakeLists.txt
++++ b/src/components/utils/CMakeLists.txt
+@@ -137,7 +137,7 @@ if(BUILD_TESTS)
+ endif()
+ 
+ install(TARGETS "Utils"
+-  DESTINATION bin
++  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   PERMISSIONS
+     OWNER_READ OWNER_WRITE
+     GROUP_READ
+diff --git a/src/plugins/appenders/CMakeLists.txt b/src/plugins/appenders/CMakeLists.txt
+index 3d18e62503..4c39f8b625 100644
+--- a/src/plugins/appenders/CMakeLists.txt
++++ b/src/plugins/appenders/CMakeLists.txt
+@@ -46,7 +46,7 @@ target_link_libraries(appenders ${LIBRARIES})
+ add_dependencies(appenders install-3rd_party_logger)
+ 
+ install(TARGETS appenders
+-  DESTINATION bin
++  DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   PERMISSIONS
+     OWNER_READ OWNER_WRITE OWNER_EXECUTE
+     GROUP_READ GROUP_EXECUTE
+-- 
+2.24.1
+

@@ -1,18 +1,14 @@
-From acc1b869e52e1c2e7dba0b534bca34a1e7da8404 Mon Sep 17 00:00:00 2001
-From: Phong Tran <tranmanphong@gmail.com>
-Date: Tue, 19 Jul 2016 07:16:24 +0700
+From 3b9a0edb4d415ee1f8a8cf099a34008a8bc26150 Mon Sep 17 00:00:00 2001
+From: Jordan Salm <jordans@validmanufacturing.com>
+Date: Thu, 23 Jan 2020 08:54:27 -0800
 Subject: [PATCH 01/10] add the default cmake cxx flag for oe
 
-Signed-off-by: Phong Tran <tranmanphong@gmail.com>
-
-%% original patch: 0001-add-the-default-cmake-cxx-flag-for-oe.patch
 ---
- CMakeLists.txt                                  | 6 +++---
- src/components/functional_module/CMakeLists.txt | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ CMakeLists.txt | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 450a919..f1dc97a 100644
+index 351bfb4ab6..5efbf4f956 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -75,8 +75,8 @@ set(POLICY_OPTION 	"$ENV{POLICY_TYPE}")
@@ -26,28 +22,15 @@ index 450a919..f1dc97a 100644
  set(BUILDDIR "$ENV{BUILDDIR}")
  
  if (ARCH_TYPE_OPTION)
-@@ -192,7 +192,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
- set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR})
+@@ -237,7 +237,7 @@ set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR})
  set(ARCHIVE_OUTPUT_DIRECTORY ./bin)
  
--set(CMAKE_CXX_FLAGS "-fPIC -std=gnu++0x -Wall -Werror -Wno-deprecated-declarations -Wuninitialized -Wvla")
-+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=gnu++0x -Wall -Werror -Wno-deprecated-declarations -Wuninitialized -Wvla")
+ set(EXCLUDE_ERROR_FLAGS "-Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations")
+-set(CMAKE_CXX_FLAGS "-fPIC -std=gnu++0x -Wall -fvisibility=hidden -Werror ${EXCLUDE_ERROR_FLAGS} -Wuninitialized -Wvla")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=gnu++0x -Wall -fvisibility=hidden -Werror ${EXCLUDE_ERROR_FLAGS} -Wuninitialized -Wvla")
  
  if (USE_GOLD_LD)
    execute_process(COMMAND ld -v OUTPUT_VARIABLE result)
-diff --git a/src/components/functional_module/CMakeLists.txt b/src/components/functional_module/CMakeLists.txt
-index 07db91f..f5b89e0 100644
---- a/src/components/functional_module/CMakeLists.txt
-+++ b/src/components/functional_module/CMakeLists.txt
-@@ -4,7 +4,7 @@ else()
-   set(GCOV_FLAGS "")
- endif()
- 
--set(CMAKE_CXX_FLAGS "-fPIC -std=gnu++0x -Wno-deprecated-declarations -Wall -Werror ${GCOV_FLAGS}")
-+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=gnu++0x -Wno-deprecated-declarations -Wall -Werror ${GCOV_FLAGS}")
- 
- if (CMAKE_BUILD_TYPE)
-   if (${CMAKE_BUILD_TYPE} STREQUAL "Release")
 -- 
-2.7.4
+2.24.1
 

@@ -1,20 +1,17 @@
-From e25165f41748b2f05b2a28f4a64682ac71801c33 Mon Sep 17 00:00:00 2001
-From: Phong Tran <tranmanphong@gmail.com>
-Date: Thu, 21 Dec 2017 23:49:53 +0700
+From 803375901e15313b668a26f3643436636b9b026c Mon Sep 17 00:00:00 2001
+From: Jordan Salm <jordans@validmanufacturing.com>
+Date: Thu, 23 Jan 2020 14:51:46 -0800
 Subject: [PATCH 07/10] Add standard /usr/lib path to rpath
 
-Signed-off-by: Phong Tran <tranmanphong@gmail.com>
-
-%% original patch: 0007-Add-standard-usr-lib-path-to-rpath.patch
 ---
  CMakeLists.txt | 1 +
  1 file changed, 1 insertion(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 55cd32e..e207923 100644
+index 782d59f075..c750bbc5bf 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -383,6 +383,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "QNX")
+@@ -428,6 +428,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "QNX")
  endif()
  
  SET(RPATH_DIRECTORIES
@@ -23,5 +20,5 @@ index 55cd32e..e207923 100644
    /usr/local/lib
    /usr/local
 -- 
-2.7.4
+2.24.1
 

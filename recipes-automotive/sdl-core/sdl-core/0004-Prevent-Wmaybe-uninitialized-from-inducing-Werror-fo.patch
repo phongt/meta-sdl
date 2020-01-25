@@ -1,0 +1,43 @@
+From f1b2ba8cb439474c598f74535ea78ca604d9a9db Mon Sep 17 00:00:00 2001
+From: Jordan Salm <jordans@validmanufacturing.com>
+Date: Thu, 23 Jan 2020 13:22:13 -0800
+Subject: [PATCH 04/10] Prevent -Wmaybe-uninitialized from inducing -Werror for
+ several files
+
+GCC 8.3 seems to generate some incorrect(?) warnings.
+---
+ .../rc_rpc_plugin/src/resource_allocation_manager_impl.cc      | 3 +++
+ src/components/application_manager/src/rpc_passing_handler.cc  | 3 +++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/src/components/application_manager/rpc_plugins/rc_rpc_plugin/src/resource_allocation_manager_impl.cc b/src/components/application_manager/rpc_plugins/rc_rpc_plugin/src/resource_allocation_manager_impl.cc
+index 049f9a3cf3..b77ab5bf51 100644
+--- a/src/components/application_manager/rpc_plugins/rc_rpc_plugin/src/resource_allocation_manager_impl.cc
++++ b/src/components/application_manager/rpc_plugins/rc_rpc_plugin/src/resource_allocation_manager_impl.cc
+@@ -30,6 +30,9 @@
+  POSSIBILITY OF SUCH DAMAGE.
+  */
+ 
++/* Turn off -Werror=maybe-uninitialized erros in gcc 8.3 */
++#pragma GCC diagnostic warning "-Wuninitialized"
++
+ #include "rc_rpc_plugin/resource_allocation_manager_impl.h"
+ #include "application_manager/application.h"
+ #include "application_manager/application_manager.h"
+diff --git a/src/components/application_manager/src/rpc_passing_handler.cc b/src/components/application_manager/src/rpc_passing_handler.cc
+index 7f72632bb1..63b6531dd4 100644
+--- a/src/components/application_manager/src/rpc_passing_handler.cc
++++ b/src/components/application_manager/src/rpc_passing_handler.cc
+@@ -30,6 +30,9 @@
+  * POSSIBILITY OF SUCH DAMAGE.
+  */
+ 
++/* Turn off -Werror=maybe-uninitialized erros in gcc 8.3 */
++#pragma GCC diagnostic warning "-Wuninitialized"
++
+ #include "application_manager/help_prompt_manager_impl.h"
+ 
+ #include <algorithm>
+-- 
+2.24.1
+

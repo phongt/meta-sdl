@@ -1,0 +1,30 @@
+From 10210b02a7119dd10431e181540600065fabe7f6 Mon Sep 17 00:00:00 2001
+From: Jordan Salm <jordans@validmanufacturing.com>
+Date: Fri, 24 Jan 2020 09:39:37 -0800
+Subject: [PATCH 09/10] avoid use of generic start.sh in /usr/bin
+
+---
+ src/appMain/CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/appMain/CMakeLists.txt b/src/appMain/CMakeLists.txt
+index 2795a64db5..3055997537 100644
+--- a/src/appMain/CMakeLists.txt
++++ b/src/appMain/CMakeLists.txt
+@@ -247,11 +247,11 @@ endif ()
+ if (${EXTENDED_POLICY} STREQUAL "EXTERNAL_PROPRIETARY")
+   install(FILES start_external_proprietary.sh DESTINATION bin
+       PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ
+-      GROUP_EXECUTE WORLD_READ WORLD_EXECUTE RENAME start.sh)
++      GROUP_EXECUTE WORLD_READ WORLD_EXECUTE RENAME sdl-start.sh)
+ else()
+   install(FILES start.sh DESTINATION bin
+       PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ
+-      GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
++      GROUP_EXECUTE WORLD_READ WORLD_EXECUTE RENAME sdl-start.sh)
+ endif()
+ 
+ if(BUILD_TESTS)
+-- 
+2.24.1
+

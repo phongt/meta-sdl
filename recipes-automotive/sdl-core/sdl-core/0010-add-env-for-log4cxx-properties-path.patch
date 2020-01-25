@@ -1,26 +1,23 @@
-From 570405af8e5c874db1852bdfb333ec0c941093ac Mon Sep 17 00:00:00 2001
-From: Phong Tran <tranmanphong@gmail.com>
-Date: Sun, 12 Feb 2017 16:54:48 +0700
-Subject: [PATCH 05/10] add env for log4cxx properties path
+From 3b0ed3d3973fabd1f9596e576169d6cf06671ca4 Mon Sep 17 00:00:00 2001
+From: Jordan Salm <jordans@validmanufacturing.com>
+Date: Fri, 24 Jan 2020 09:52:44 -0800
+Subject: [PATCH 10/10] add env for log4cxx properties path
 
 Add the env variable SDL_LOG4CXX_PROPERTIES_FILE
 to indicate the path of log4cxx configure file.
-
-%% original patch: 0005-add-env-for-log4cxx-properties-path.patch
 ---
- src/appMain/main.cc | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ src/appMain/main.cc | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/src/appMain/main.cc b/src/appMain/main.cc
-index feb5b58..08e65f7 100644
+index cb59f63b1d..e33aa39956 100644
 --- a/src/appMain/main.cc
 +++ b/src/appMain/main.cc
-@@ -112,8 +112,13 @@ int32_t main(int32_t argc, char** argv) {
+@@ -133,7 +133,13 @@ int32_t main(int32_t argc, char** argv) {
  
    // --------------------------------------------------------------------------
    // Logger initialization
 -  INIT_LOGGER("log4cxx.properties", profile_instance.logs_enabled());
--
 +  const char* log4cxx_path = getenv("SDL_LOG4CXX_PROPERTIES_FILE");
 +  if (!log4cxx_path) {
 +    INIT_LOGGER("log4cxx.properties", profile_instance.logs_enabled());
@@ -28,9 +25,9 @@ index feb5b58..08e65f7 100644
 +    std::string log4cxx_properties = std::string(log4cxx_path);
 +    INIT_LOGGER(log4cxx_properties, profile_instance.logs_enabled());
 +  }
+ 
    threads::Thread::SetNameForId(threads::Thread::CurrentId(), "MainThread");
  
-   if (!utils::appenders_loader.Loaded()) {
 -- 
-2.7.4
+2.24.1
 

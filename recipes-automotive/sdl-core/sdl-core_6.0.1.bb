@@ -24,18 +24,18 @@ SRC_URI += " \
     file://0001-add-the-default-cmake-cxx-flag-for-oe.patch \
     file://0002-Use-the-default-install-prefix-of-cmake.patch \
     file://0003-disable-building-sdl-tools.patch \
-    file://0004-Change-to-use-standard-libdir.patch \
-    file://0005-add-env-for-log4cxx-properties-path.patch \
-    file://0006-Install-the-configure-file-to-sysconf-dir.patch \
+    file://0004-Prevent-Wmaybe-uninitialized-from-inducing-Werror-fo.patch \
+    file://0005-Install-the-configure-file-to-sysconf-dir.patch \
+    file://0006-Change-to-use-standard-libdir.patch \
     file://0007-Add-standard-usr-lib-path-to-rpath.patch \
-    file://0008-Unbreak-build-when-BUILD_BT_SUPPORT-OFF.patch \
-    file://0009-Function-GetDataOnSessionKey-cannot-be-overloade.patch \
-    file://0010-fix-error-of-WriteHandshakeData-return-value.patch \
+    file://0008-Prepend-the-correct-sysroot-prefix-to-the-libbson-li.patch \
+    file://0009-avoid-use-of-generic-start.sh-in-usr-bin.patch \
+    file://0010-add-env-for-log4cxx-properties-path.patch \
     file://smartdevicelink.service \
 "
 
-PV = "4.5.1"
-SRCREV = "7f7fcbb998fb17f2954fd103349af67ea9b71a3f"
+PV = "6.0.1"
+SRCREV = "3dcc409766b49f9914963a5c7b2ef0c0dc5fddc8"
 
 S = "${WORKDIR}/git"
 
@@ -67,6 +67,9 @@ EXTRA_OECMAKE += "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
 EXTRA_OECMAKE += "-DUSE_GOLD_LD=OFF"
 #FixMe: current with thud openssl 1.1.1. some interfaces were changed disable security...
 EXTRA_OECMAKE += "-DENABLE_SECURITY=OFF"
+
+# sdl-core does not compile with ninja
+OECMAKE_GENERATOR = "Unix Makefiles"
 
 cmake_do_generate_toolchain_file_append() {
     cat >> ${WORKDIR}/toolchain.cmake <<EOF

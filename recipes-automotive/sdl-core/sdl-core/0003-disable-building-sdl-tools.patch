@@ -1,32 +1,30 @@
-From ee30bad65787f1e86f9cb83538ef2b85f2125de5 Mon Sep 17 00:00:00 2001
-From: Phong Tran <tranmanphong@gmail.com>
-Date: Sun, 17 Jul 2016 12:25:52 +0700
+From 6f61a156aa96f738086a5744ae84e0e901020380 Mon Sep 17 00:00:00 2001
+From: Jordan Salm <jordans@validmanufacturing.com>
+Date: Thu, 23 Jan 2020 09:00:08 -0800
 Subject: [PATCH 03/10] disable building sdl tools
 
 There is an issue of do_install(). The tools are shipped
 to the wrong location.BTW There may not use of intergen now.
-
-Signed-off-by: Phong Tran <tranmanphong@gmail.com>
-
-%% original patch: 0003-disable-building-sdl-tools.patch
 ---
- CMakeLists.txt | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ CMakeLists.txt | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 732b601..55cd32e 100644
+index 62b6ba281a..782d59f075 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -408,7 +408,8 @@ endif()
+@@ -453,8 +453,9 @@ endif()
  add_subdirectory(./src/3rd_party-static)
  
  # --- Tools
 -add_subdirectory(./tools)
+-
 +# inactive building tools now
 +#add_subdirectory(./tools)
- 
++ 
  # --- Components
  add_subdirectory(./src/components)
+ 
 -- 
-2.7.4
+2.24.1
 
